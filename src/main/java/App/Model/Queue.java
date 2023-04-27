@@ -44,7 +44,7 @@ public class Queue extends Thread {
 
 
     public void run() {
-        while(Simulation.time<Simulation.simulationTime){
+        while(Simulation.time<=Simulation.simulationTime){
             if(!isServing){
                 serveClient();
                 try {

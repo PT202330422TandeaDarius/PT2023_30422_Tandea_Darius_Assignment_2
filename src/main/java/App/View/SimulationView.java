@@ -1,11 +1,10 @@
 package App.View;
 
+import App.Controller.Simulation;
 import App.Model.Client;
 import App.Model.Queue;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class SimulationView extends JFrame {
@@ -13,7 +12,6 @@ public class SimulationView extends JFrame {
     ArrayList<Queue> queues;
     JScrollPane scrollPane;
     JTextArea textArea;
-    Timer updateTimer;
 
     public SimulationView(ArrayList<Client> clients, ArrayList<Queue> queues){
         this.clients=clients;
@@ -60,5 +58,6 @@ public class SimulationView extends JFrame {
         else {
             textArea.append("No queues available");
         }
+        Simulation.writeInFile(textArea.getText());
     }
 }

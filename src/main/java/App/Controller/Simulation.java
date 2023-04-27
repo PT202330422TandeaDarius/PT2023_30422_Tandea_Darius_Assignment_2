@@ -49,7 +49,7 @@ public class Simulation {
 
     static boolean initialized = false;
 
-    public static synchronized void addToFastestQueue(Client client) {
+    public static void addToFastestQueue(Client client) {
         Queue targetQueue = queues.get(nextQueue);
         targetQueue.addClient(client);
         nextQueue = (nextQueue + 1) % queues.size();
@@ -82,11 +82,6 @@ public class Simulation {
                             break;
                         }
                     }
-                StringBuilder clients = new StringBuilder();
-                for (Client c : Simulation.clients) clients.append(c.toString()).append(" ");
-                StringBuilder queues = new StringBuilder();
-                for (Queue q : Simulation.queues) queues.append(q.toString()).append(" ");
-                writeInFile("Time: " + time + "\n" + "Waiting Clients: " + clients.toString() + "\n" + queues.toString() + "\n");
                 time++;
                 sv.update();
                 try {
@@ -94,7 +89,7 @@ public class Simulation {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(stopSimulation()) {sv.update(); writeInFile("Time: " + time + "\n" + "Waiting Clients: " + clients.toString() + "\n" + queues.toString() + "\n");break;}
+                if(stopSimulation()) {time++;sv.update(); break;}
             }
             for(Queue q: queues) q.interrupt();}).start();
     }
